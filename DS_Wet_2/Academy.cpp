@@ -5,11 +5,4 @@
  *      Author: Polina
  */
 
-#include "Academy.h"
-
-class Academy{
-
-public:
-
-};
 

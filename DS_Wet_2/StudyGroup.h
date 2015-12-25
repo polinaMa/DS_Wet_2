@@ -10,12 +10,6 @@
 
 #include "student.h"
 
-class StudyGroup{
-	int id;
-
-public:
-
-}
 
 
 
