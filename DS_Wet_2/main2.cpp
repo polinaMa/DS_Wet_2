@@ -21,10 +21,11 @@
 #include "library2.h"
 #include <cstring>
 
+
 using namespace std;
 
 
-/* The command's strings */
+// The command's strings
 typedef enum {
 	NONE_CMD = -2,
 	COMMENT_CMD = -1,
@@ -61,7 +62,7 @@ static const char* ReturnValToStr(int val) {
 	}
 }
 
-/* we assume maximum string size is not longer than 256  */
+// we assume maximum string size is not longer than 256
 #define MAX_STRING_INPUT_SIZE (255)
 #define MAX_BUFFER_SIZE       (255)
 
@@ -77,9 +78,9 @@ if ( (read_parameters)!=(required_parameters) ) { printf(ErrorString); return er
 
 static bool isInit = false;
 
-/***************************************************************************/
-/* main                                                                    */
-/***************************************************************************/
+//*************************************************************************
+// main
+//*************************************************************************
 
 int main(int argc, const char**argv) {
 
@@ -94,9 +95,9 @@ int main(int argc, const char**argv) {
 }
 ;
 
-/***************************************************************************/
-/* Command Checker                                                         */
-/***************************************************************************/
+//*************************************************************************
+// Command Checker
+//*************************************************************************
 
 static commandType CheckCommand(const char* const command,
 		const char** const command_arg) {
@@ -118,9 +119,9 @@ static commandType CheckCommand(const char* const command,
 }
 ;
 
-/***************************************************************************/
-/* Commands Functions                                                      */
-/***************************************************************************/
+//*************************************************************************
+// Commands Functions
+//*************************************************************************
 
 static errorType OnInit(void** DS, const char* const command);
 static errorType OnAddStudent(void* DS, const char* const command);
@@ -134,11 +135,11 @@ static errorType OnGetNumOfStudentsInRange(void* DS,const char* const command);
 static errorType OnQuit(void** DS, const char* const command);
 
 
-/***************************************************************************/
-/* Parser                                                                  */
-/***************************************************************************/
+//*************************************************************************
+// Parser
+//*************************************************************************
 static errorType parser(const char* const command) {
-	static void *DS = NULL; /* The general data structure */
+	static void *DS = NULL; // The general data structure
 	const char* command_args = NULL;
 	errorType rtn_val = error;
 
@@ -191,9 +192,9 @@ static errorType parser(const char* const command) {
 
 int INIT_n;
 
-/***************************************************************************/
-/* OnInit                                                                  */
-/***************************************************************************/
+//*************************************************************************
+// OnInit
+//*************************************************************************
 static errorType OnInit(void** DS, const char* const command) {
 	if (isInit) {
 		printf("Init was already called.\n");
@@ -213,9 +214,9 @@ static errorType OnInit(void** DS, const char* const command) {
 	return error_free;
 }
 
-/***************************************************************************/
-/* OnAddStudent                                                          */
-/***************************************************************************/
+//*************************************************************************
+// OnAddStudent
+//*************************************************************************
 static errorType OnAddStudent(void* DS, const char* const command) {
 
 	int studentID;
@@ -229,9 +230,9 @@ static errorType OnAddStudent(void* DS, const char* const command) {
 	return error_free;
 }
 
-/***************************************************************************/
-/* OnAddStudentToStudyGroup                                                */
-/***************************************************************************/
+//*************************************************************************
+// OnAddStudentToStudyGroup
+//*************************************************************************
 static errorType OnAssignStudent(void* DS, const char* const command) {
 
 	int studentID;
@@ -246,9 +247,9 @@ static errorType OnAssignStudent(void* DS, const char* const command) {
 }
 
 
-/***************************************************************************/
-/* OnUnifyFacultiesByStudents                                              */
-/***************************************************************************/
+//*************************************************************************
+// OnUnifyFacultiesByStudents
+//*************************************************************************
 static errorType OnUnifyFacultiesByStudents(void* DS, const char* const command) {
 
   int studentID1;
@@ -265,9 +266,9 @@ static errorType OnUnifyFacultiesByStudents(void* DS, const char* const command)
 }
 
 
-/***************************************************************************/
-/* OnJoinFaculties                                                       */
-/***************************************************************************/
+//*************************************************************************
+// OnJoinFaculties
+//*************************************************************************
 static errorType OnJoinFaculties(void* DS, const char* const command) {
 	int study_grp1;
 	int study_grp2;
@@ -280,9 +281,9 @@ static errorType OnJoinFaculties(void* DS, const char* const command) {
 	return error_free;
 }
 
-/***************************************************************************/
-/* OnGetFaculty                                                         */
-/***************************************************************************/
+//*************************************************************************
+// OnGetFaculty
+//*************************************************************************
 static errorType OnGetFaculty(void* DS, const char* const command) {
 	int studentID;
 	ValidateRead( sscanf(command, "%d",&studentID), 1,
@@ -299,9 +300,9 @@ static errorType OnGetFaculty(void* DS, const char* const command) {
 	return error_free;
 }
 
-/***************************************************************************/
-/* OnUpgradeStudyGroup                                                           */
-/***************************************************************************/
+//*************************************************************************
+// OnUpgradeStudyGroup
+//*************************************************************************
 static errorType OnUpgradeStudyGroup(void* DS, const char* const command) {
 	int groupID;
 	int factor;
@@ -314,9 +315,9 @@ static errorType OnUpgradeStudyGroup(void* DS, const char* const command) {
 	return error_free;
 }
 
-/***************************************************************************/
-/* OnGetSmartestStudent                                                 */
-/***************************************************************************/
+//*************************************************************************
+// OnGetSmartestStudent
+//*************************************************************************
 static errorType OnGetSmartestStudent(void* DS, const char* const command) {
 	int groupID;
 	ValidateRead( sscanf(command, "%d",&groupID), 1,
@@ -334,9 +335,9 @@ static errorType OnGetSmartestStudent(void* DS, const char* const command) {
 	return error_free;
 }
 
-/***************************************************************************/
-/* OnGetNumOfStudentsInRange                                                 */
-/***************************************************************************/
+//*************************************************************************
+// OnGetNumOfStudentsInRange
+//*************************************************************************
 static errorType OnGetNumOfStudentsInRange(void* DS,
 		const char* const command) {
 	int min;
@@ -356,9 +357,9 @@ static errorType OnGetNumOfStudentsInRange(void* DS,
 	return error_free;
 }
 
-/***************************************************************************/
-/* OnQuit                                                                  */
-/***************************************************************************/
+//*************************************************************************
+// OnQuit
+//*************************************************************************
 static errorType OnQuit(void** DS, const char* const command) {
 	Quit(DS);
 	if (*DS != NULL) {

@@ -8,18 +8,29 @@
 #ifndef STUDENT_H_
 #define STUDENT_H_
 
+#include "assert.h"
 
-class Student{
+class Student {
 	int id;
 	int average;
-	int facultyID;
+	int studyGroup;
 public:
 
 	/*
 	 *
 	 */
-	Student(int id, int average):id(id),average(average),facultyID(-1){
-	};
+	Student() :
+			id(0), average(0), studyGroup(-1) {
+	}
+	;
+
+	/*
+	 *
+	 */
+	Student(int id, int average) :
+			id(id), average(average), studyGroup(-1) {
+	}
+	;
 
 	/*
 	 *
@@ -34,34 +45,28 @@ public:
 	/*
 	 *
 	 */
-	int setID(int id);
-
-	/*
-	 *
-	 */
 	int setAverage(int id);
 
 	/*
 	 *
 	 */
-	int setFacultyID();
+	int setStudyGroup(int);
 
 	/*
 	 *
 	 */
-	int getID();
+	const int& getID() const;
 
 	/*
 	 *
 	 */
-	int getAverage();
+	int getAverage() const;
 
 	/*
 	 *
 	 */
-	int getFacultyID();
+	int getStudyGroup() const;
 
 };
-
 
 #endif /* STUDENT_H_ */
