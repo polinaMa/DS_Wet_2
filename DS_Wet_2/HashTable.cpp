@@ -17,7 +17,6 @@ HashTable::HashTable(int initSize) {
 }
 
 HashTable::~HashTable() {
-	delete[] table;
 }
 
 bool HashTable::contains(int id) {

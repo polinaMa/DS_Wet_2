@@ -5,7 +5,7 @@
  *      Author: Ron
  */
 
-#include "HashTable.h"
+#include "Academy.h"
 #include <stdlib.h>
 #include "DS_test_utils.h"
 #include <string>
@@ -14,6 +14,7 @@
 std::string location;
 
 using namespace std;
+/*
 
 bool test() {
 	HashTable table = HashTable(1);
@@ -26,8 +27,23 @@ bool test() {
 	return true;
 }
 
+bool acaTest() {
+	Academy ac = Academy(10);
+	Student* arr = new Student[1000];
+	for (int i = 0; i < 1000; ++i) {
+		arr[i] = Student(i, i % 100);
+		ac.AddStudent(arr[i].getID(), arr[i].getAverage());
+	}
+	int range;
+	ac.GetNumOfStudentsInRange(35, 55, &range);
+	std::cout << "RANGE: " << range << std::endl;
+	return true;
+}
+
 int main() {
 	test();
+	acaTest();
 	return 0;
 }
+*/
 

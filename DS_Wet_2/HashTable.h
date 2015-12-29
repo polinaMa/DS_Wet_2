@@ -32,6 +32,11 @@ class HashTable {
 	};
 
 public:
+	HashTable() {
+		size = 0;
+		numOfElements = 0;
+		table = new AVLTree<int, Student*>[1];
+	}
 	HashTable(int);
 	~HashTable();
 	bool contains(int);
@@ -40,6 +45,7 @@ public:
 
 	void print();
 
-};
+}
+;
 
 #endif /* HASHTABLE_H_ */

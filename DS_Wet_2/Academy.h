@@ -13,8 +13,9 @@
 #include "HashTable.h"
 
 class Academy {
-	AVLTree<int, Student> studentTree;
-	int* gradeHistogram;
+	int numOfStudyGroups;
+	AVLTree<int, Student> studentsTree;
+	int* gradesHistogram;
 	HashTable students;
 public:
 	Academy(int n);
