@@ -15,10 +15,18 @@ Academy::Academy(int n) {
 		gradesHistogram[i] = 0;
 	}
 	students = HashTable(10);
+
+	studyGroupsArr = new StudyGroup*[numOfStudyGroups];
+	for(int i=0 ; i < numOfStudyGroups ; i++){
+		studyGroupsArr[i] = new StudyGroup(i);
+	}
+
+	studyGroupsUF = new UnionFind(numOfStudyGroups);
 }
 
 Academy::~Academy() {
-
+	delete studyGroupsArr;
+	delete gradesHistogram;
 }
 
 StatusType Academy::AddStudent(int studentID, int average) {
@@ -47,16 +55,34 @@ StatusType Academy::AssignStudent(int studentID, int studyGroup) {
 	students.insert(s);
 	return SUCCESS;
 }
-/*
+
 
 StatusType Academy::JoinFaculties(int studyGroup1, int studyGroup2) {
+	int faculty1=0,faculty2=0;
+	faculty1 = studyGroupsUF->find(studyGroup1);
+	faculty2 = studyGroupsUF->find(studyGroup2);
 
+	//both study groups belong to the same faculty
+	if(faculty1 == faculty2){
+		return FAILURE;
+	}
+
+	studyGroupsUF->unite(faculty1,faculty2);
+
+	return SUCCESS;
 }
+
 
 StatusType Academy::GetFaculty(int studentID, int* faculty) {
-
+	//check if astudent is assigned to a faculty or exists in the academy
+	if (students.contains(studentID) == false) {
+			return FAILURE;
+	}
+	const Student* student = students.get(studentID);
+	*faculty = studyGroupsUF->find(student->getStudyGroup());
+	return SUCCESS;
 }
-
+/*
 StatusType Academy::UnifyFacultiesByStudents(int studentID1, int studentID2) {
 
 }
@@ -64,11 +90,20 @@ StatusType Academy::UnifyFacultiesByStudents(int studentID1, int studentID2) {
 StatusType Academy::UpgradeStudyGroup(int studyGroup, int factor) {
 
 }
-
-StatusType Academy::GetSmartestStudent(int facultyID, int* student) {
-
-}
 */
+StatusType Academy::GetSmartestStudent(int facultyID, int* student) {
+	int newFacultyID =studyGroupsUF->find(facultyID);
+	int topStudentID = studyGroupsArr[newFacultyID]->getTopStudentID();
+
+	//there are no students in the faculty
+	if(topStudentID ==-1){
+		return FAILURE;
+	}
+
+	*student=topStudentID;
+	return SUCCESS;
+}
+
 
 StatusType Academy::GetNumOfStudentsInRange(int fromAvg, int toAvg, int* num) {
 	if (num == NULL || fromAvg >= toAvg || fromAvg < 0 || toAvg > 100) {
@@ -80,4 +115,8 @@ StatusType Academy::GetNumOfStudentsInRange(int fromAvg, int toAvg, int* num) {
 	}
 	*num = numOfStudentsInRange;
 	return SUCCESS;
+}
+
+int Academy::AcademyGetSize(){
+	return numOfStudyGroups;
 }
