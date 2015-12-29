@@ -98,12 +98,12 @@ public:
 
 	/*
 	 * hasOneSon - if the current node has one child (only a left one or only
-	 * 			   a right one) returns true , otherwise return false
+	 * 			   a right one) rwturns true , otherwise return false
 	 */
 	bool hasOneSon() const;
 
 	/*
-	 * hasTwoSons - if the current node has two children (both left and right)
+	 * hasTwoSons - if the current node has two children (bothe left and right)
 	 * 				returns true , otherwise returns false
 	 */
 	bool hasTwoSons() const;
@@ -163,12 +163,12 @@ public:
 
 	/*
 	 * setLeft - sets the left son of the current node to be the received node
-	 * 			 asserting the current node isn't the received node
+	 * 			 asserting the current node isn't the recieved node
 	 */
 	void setLeft(BinaryNode<T, U>* left);
 
 	/*
-	 * setRight - sets the right son of the current node to be the received node
+	 * setRight - sets the right son of the current node to be the reeived node
 	 * 			  asserting the current node isn't the received node
 	 */
 	void setRight(BinaryNode<T, U>* right);
@@ -404,14 +404,14 @@ public:
 
 	/*
 	 * insert - adds a node with the received key and value to the current tree
-	 * 			this function will be overridden in each tree according to the
+	 * 			this function willl be overriden in each tree according to the
 	 * 			type of the tree
 	 */
 	virtual void insert(const T& key, const U& value);
 
 	/*
 	 * remove - removes a node with the received key from the current tree
-	 * 			this function will be overridden in each tree according to the
+	 * 			this function willl be overriden in each tree according to the
 	 * 			type of the tree
 	 */
 	virtual void remove(const T& key);
@@ -425,7 +425,7 @@ public:
 	/*
 	 * getSize - returns the number of nodes in the tree
 	 */
-	int getSize() const;
+	int getSize();
 
 	/*
 	 * clear - deletes the tree with all its' nodes an data stored in them
@@ -470,8 +470,8 @@ public:
 	 * 			  performs the function on all nodes in the tree in the
 	 * 			  following order :
 	 * 			       1.root
-	 * 			       2.left sub tree
-	 * 			       3.right sub tree
+	 * 			       2.left subtree
+	 * 			       3.right subtree
 	 */
 	template<class Function>
 	void preOrder(const Function& f);
@@ -481,9 +481,9 @@ public:
 	 *
 	 * 			  performs the function on all nodes in the tree in the
 	 * 			  following order :
-	 * 			       1.left sub tree
+	 * 			       1.left subtree
 	 * 			       2.root
-	 * 			       3.right sub tree
+	 * 			       3.right subtree
 	 */
 	template<class Function>
 	void inOrder(const Function& f);
@@ -493,8 +493,8 @@ public:
 	 *
 	 * 			  performs the function on all nodes in the tree in the
 	 * 			  following order :
-	 * 			       1.left sub tree
-	 * 			       2.right sub tree
+	 * 			       1.left subtree
+	 * 			       2.right subtree
 	 * 			       3.root
 	 */
 	template<class Function>
@@ -555,7 +555,7 @@ protected:
 	void deleteTree(BinaryNode<T, U>* node);
 
 	/*
-	 * removeNode - removes from the tree the node of the received pointer
+	 * removeNode - removes from the tree the node of the received pointr
 	 */
 	BinaryNode<T, U>* removeNode(BinaryNode<T, U>* node);
 
@@ -565,8 +565,8 @@ protected:
 	 *
 	 * 			 performs the function on all nodes in the tree in "pre-order" :
 	 * 			 1.root
-	 * 			 2.left sub tree
-	 * 			 3.right sub tree
+	 * 			 2.left subtree
+	 * 			 3.right subtree
 	 */
 	template<class Function>
 	void pre_aux(BinaryNode<T, U>* node, Function& f);
@@ -576,9 +576,9 @@ protected:
 	 * 			function that can be performed on the node
 	 *
 	 * 			 performs the function on all nodes in the tree in "in-order" :
-	 * 			 1.left sub tree
+	 * 			 1.left subtree
 	 * 			 2.root
-	 * 			 3.right sub tree
+	 * 			 3.right subtree
 	 */
 	template<class Function>
 	void in_aux(BinaryNode<T, U>* node, Function& f);
@@ -588,8 +588,8 @@ protected:
 	 * 			  function that can be performed on the node
 	 *
 	 * 			 performs the function on all nodes in the tree in "post-order" :
-	 * 			 1.left sub tree
-	 * 			 2.right sub tree
+	 * 			 1.left subtree
+	 * 			 2.right subtree
 	 * 			 3.root
 	 */
 	template<class Function>
@@ -620,9 +620,9 @@ protected:
 	BinaryNode<T, U>* removeTwoSons(BinaryNode<T, U>* nodeToRemove);
 
 	/*
-	 * getRoot - returns a pointer to the root of the current tree
+	 * getRoot - returns a pointer to the croot of the current tree
 	 */
-	BinaryNode<T, U>* getRoot() const;
+	BinaryNode<T, U>* getRoot() const ;
 
 	/*
 	 * findParent - returns a pointer to the parent of the node with the
@@ -709,7 +709,7 @@ U* BinSearchTree<T, U>::getMin() {
 }
 
 template<class T, class U>
-int BinSearchTree<T, U>::getSize() const {
+int BinSearchTree<T, U>::getSize() {
 	return size;
 }
 
@@ -978,7 +978,7 @@ void BinSearchTree<T, U>::post_aux(BinaryNode<T, U>* node, Function& f) {
 }
 
 template<class T, class U>
-void BinSearchTree<T, U>::TreeToArray(U* arr) const {
+void BinSearchTree<T, U>::TreeToArray(U* arr) const{
 	assert(arr);
 	int index = 0;
 	TreeToArray_aux(arr, getRoot(), &index);
@@ -991,7 +991,7 @@ void BinSearchTree<T, U>::TreeToArray_aux(U* array, BinaryNode<T, U>* node,
 		return;
 	}
 	TreeToArray_aux(array, node->getLeft(), index);
-	array[*index] = *node->getValue();
+	array[*index] = U(*node->getValue());
 	*index = *index + 1;
 	TreeToArray_aux(array, node->getRight(), index);
 }
