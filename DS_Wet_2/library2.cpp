@@ -15,6 +15,10 @@
 using namespace std;
 
 void*       Init(int n){
+	if(n < 2){
+		return NULL;
+	}
+
 	return NULL;
 }
 
