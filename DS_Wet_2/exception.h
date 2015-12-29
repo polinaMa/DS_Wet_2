@@ -15,4 +15,8 @@ namespace HashTableException{
 	class ElementAlreadyExists {};
 }
 
+namespace ListExceptions{
+	class ElementNotFound {};
+}
+
 #endif /* EXCEPTION_H_ */
