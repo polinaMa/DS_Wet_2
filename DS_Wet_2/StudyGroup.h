@@ -11,6 +11,8 @@
 #include "student.h"
 #include "assert.h"
 
+#define NO_STUDENTS_WITH_AVG -1
+
 class StudyGroup{
 	int id;
 	int topStudentAVG;
@@ -29,7 +31,7 @@ public:
 	 * 							   topStudentID to be -1 because there are no
 	 * 							   students in the study Group yet
 	 */
-	StudyGroup(int id):id(id),topStudentAVG(0),topStudentID(-1){
+	StudyGroup(int id):id(id),topStudentAVG(0),topStudentID(NO_STUDENTS_WITH_AVG){
 	};
 
 	/*

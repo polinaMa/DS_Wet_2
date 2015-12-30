@@ -23,7 +23,7 @@ int StudyGroup::getTopStudentID(){
 }
 
 void StudyGroup::setTopStudentID(int newStudentID){
-	if(newStudentID<0){
+	if(newStudentID ==  NO_STUDENTS_WITH_AVG){
 		return ;
 	}
 

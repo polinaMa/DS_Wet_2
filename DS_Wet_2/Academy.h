@@ -77,12 +77,23 @@ public:
 	StatusType GetFaculty(int studentID, int* faculty);
 
 	/*
+	 * UnifyFacultiesByStudents - unify the faculties of the students to be
+	 * 							  a new faculty with the name of the faculty to
+	 * 							  which the first student belongs
 	 *
+	 * @param studentID1 - the id of the first student
+	 * @param studentID2 - the id of the second student
 	 */
 	StatusType UnifyFacultiesByStudents(int studentID1, int studentID2);
 
 	/*
+	 * UpgradeStudyGroup - update the gardes of the student in the study group
+	 * 						with the received id. Increase the grades of the
+	 * 						students in the study group by multiplying the
+	 * 						garde by the factor.
 	 *
+	 * 	@param studyGroup - the id of the study group to be upgraded
+	 * 	@param factor - the factor by which the grade will be incresed
 	 */
 	StatusType UpgradeStudyGroup(int studyGroup, int factor);
 
@@ -103,7 +114,14 @@ public:
 	StatusType GetSmartestStudent(int facultyID, int* student);
 
 	/*
+	 * GetNumOfStudentsInRange - returns the number of students in the grades
+	 * 						     range defined by the received bounds
 	 *
+	 * 	@param fromAvg - lower bound of average to return
+	 * 	@param toAvg - higher range of average to return
+	 * 	@param num - pointer to the result of the function , the number of
+	 * 				 students with average in the requested range  will be
+	 * 				 saved there
 	 */
 	StatusType GetNumOfStudentsInRange(int fromAvg, int toAvg, int* num);
 
