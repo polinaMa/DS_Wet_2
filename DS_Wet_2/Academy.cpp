@@ -9,30 +9,18 @@
 
 Academy::Academy(int n) {
 	numOfStudyGroups = n;
-	studentsTree = AVLTree<int, Student>();
 
 	gradesHistogram = new int[101];
 	for (int i = 0; i < 101; i++) {
 		gradesHistogram[i] = 0;
 	}
 
-	students = HashTable(10);
-
-	studyGroupsArr = new StudyGroup*[numOfStudyGroups];
-	for(int i=0 ; i < numOfStudyGroups ; i++){
-		studyGroupsArr[i] = new StudyGroup(i);
-	}
 	studyGroupsUF = new UnionFind(numOfStudyGroups);
 }
 
 Academy::~Academy() {
-	for(int i = 0; i < numOfStudyGroups ; i++){
-		delete studyGroupsArr[i];
-	}
-
-	delete studyGroupsUF;
-	delete[] studyGroupsArr;
 	delete[] gradesHistogram;
+	delete studyGroupsUF;
 }
 
 StatusType Academy::AddStudent(int studentID, int average) {
@@ -66,11 +54,12 @@ StatusType Academy::AssignStudent(int studentID, int studyGroup) {
 	student->setStudyGroup(studyGroup);
 
 	// add the assigned student to the hash table
-	students.insert(student);
+	students.insert(*student);
 
 	//update highest average in faculty
 	int facultyID = studyGroupsUF->find(student->getStudyGroup());
-	studyGroupsArr[facultyID]->setTopStudentAVG(student->getAverage(),studentID);
+	studyGroupsUF->setBestStudentInFaculty(facultyID,studentID,
+														student->getAverage());
 	return SUCCESS;
 }
 
@@ -86,7 +75,6 @@ StatusType Academy::JoinFaculties(int studyGroup1, int studyGroup2) {
 	}
 
 	studyGroupsUF->unite(faculty1,faculty2);
-
 	return SUCCESS;
 }
 
@@ -136,10 +124,10 @@ StatusType Academy::UpgradeStudyGroup(int studyGroup, int factor) {
 
 StatusType Academy::GetSmartestStudent(int facultyID, int* student) {
 	int newFacultyID =studyGroupsUF->find(facultyID);
-	int topStudentID = studyGroupsArr[newFacultyID]->getTopStudentID();
+	int topStudentID = studyGroupsUF->getTopStudentIDInFaculty(newFacultyID);
 
 	//there are no students in the faculty
-	if(topStudentID ==  NO_STUDENTS_WITH_AVG){
+	if(topStudentID ==  -1){
 		return FAILURE;
 	}
 

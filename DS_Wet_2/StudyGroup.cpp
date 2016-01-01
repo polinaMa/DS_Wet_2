@@ -52,3 +52,7 @@ void StudyGroup::setTopStudentAVG(int newStudentAVG , int newStudentID){
 		topStudentAVG = newStudentAVG;
 	}
 }
+
+void StudyGroup::setStudyGroupID(int id){
+	this->id=id;
+}

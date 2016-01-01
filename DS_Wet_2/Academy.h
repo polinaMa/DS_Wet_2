@@ -11,7 +11,6 @@
 #include "library2.h"
 #include "AVLTree.h"
 #include "HashTable.h"
-#include "StudyGroup.h"
 #include "UnionFind.h"
 
 class Academy {
@@ -19,7 +18,6 @@ class Academy {
 	AVLTree<int, Student> studentsTree;
 	int* gradesHistogram;
 	HashTable students;
-	StudyGroup** studyGroupsArr;
 	UnionFind* studyGroupsUF;
 
 public:

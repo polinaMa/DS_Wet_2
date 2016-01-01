@@ -9,13 +9,16 @@
 #define UNIONFIND_H_
 
 #include "assert.h"
-
-#define IS_PARENT -1
+#include "StudyGroup.h"
+#include <stdlib.h>
 
 class UnionFind{
 	int numOfElements;
 	int* sizes;
 	int* parents;
+	static const int IS_PARENT = -1;
+	StudyGroup* studyGroupsArr;
+
 public:
 
 	/*
@@ -53,6 +56,19 @@ public:
 	 * @param parent2 - the parent of the second group
 	 */
 	void unite(int parent1, int parent2);
+
+	/*
+	 * setBestStudentInFaculty - updates best average for the received faculty
+	 */
+	void setBestStudentInFaculty(int studyGroupID , int studentID , int average);
+
+
+
+	/*
+	 * getTopStudentIDInFaculty - returns the id of the best setudent in the
+	 * 							  received faculty
+	 */
+	int getTopStudentIDInFaculty(int facultyID);
 };
 
 #endif /* UNIONFIND_H_ */

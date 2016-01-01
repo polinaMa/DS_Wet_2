@@ -16,8 +16,8 @@
 
 class HashTable {
 	int size, numOfElements;
-	AVLTree<int, Student*>* table;
-	static const int tableFactor = 10;
+	AVLTree<int, Student>* table;
+	static const int tableFactor = 2;
 
 	template<class T, class U>
 	class printFunction {
@@ -47,10 +47,10 @@ class HashTable {
 					return;
 				}
 
-				Student** student = AVLnode->value;
+				Student* student = AVLnode->value;
 
-				if((*student)->getStudyGroup()==studyGroupID){
-					int newGrade=((*student)->getAverage())*factor;
+				if((*student).getStudyGroup()==studyGroupID){
+					int newGrade=((*student).getAverage())*factor;
 					if(newGrade > 100){
 						newGrade = 100;
 					}
@@ -62,18 +62,9 @@ class HashTable {
 public:
 
 	/*
-	 * HashTable - Constructor - create an empty Hash Table
+     * HashTable - Constructor - creates a new Hash table with the received size
 	 */
-	HashTable() {
-		size = 0;
-		numOfElements = 0;
-		table = new AVLTree<int, Student*>[1];
-	}
-
-	/*
-	 * HashTable - Constructor - creates a new Hash table with the received size
-	 */
-	HashTable(int);
+	HashTable(int initSize=2);
 
 	/*
 	 * ~HashTable - Destructor - frees all memmory allocated in the hash table
@@ -90,7 +81,7 @@ public:
 	/*
 	 * insert - adds a student with the receieved id to the hash table
 	 */
-	void insert(Student*);
+	void insert(const Student& s);
 
 	/*
 	 * get - returns a const pointer to the student with the received id

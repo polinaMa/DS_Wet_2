@@ -11,12 +11,11 @@
 #include "Student.h"
 #include "assert.h"
 
-#define NO_STUDENTS_WITH_AVG -1
-
 class StudyGroup{
 	int id;
 	int topStudentAVG;
 	int topStudentID;
+	static const int NO_STUDENTS_WITH_AVG = -1;
 
 	/*
 	 * setTopStudentID - updates the id of the student to be the received id
@@ -32,6 +31,8 @@ public:
 	 * 							   students in the study Group yet
 	 */
 	StudyGroup(int id):id(id),topStudentAVG(0),topStudentID(NO_STUDENTS_WITH_AVG){
+	};
+	StudyGroup():id(0),topStudentAVG(0),topStudentID(NO_STUDENTS_WITH_AVG){
 	};
 
 	/*
@@ -68,8 +69,10 @@ public:
 	 */
 	int getTopStudentID();
 
-
-
+	/*
+	 * setStudyGroupID - sets the current study group id to be the received id
+	 */
+	void setStudyGroupID(int id);
 };
 
 
