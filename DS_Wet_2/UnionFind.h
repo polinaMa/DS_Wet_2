@@ -80,6 +80,13 @@ public:
 	 *
 	 */
 	void updateStudentExist(int studyGroupID);
+
+	/*
+	 *
+	 *
+	 */
+	bool isFaculty(int studyGroupID);
+	bool isFacultyEmpty(int studyGroupID);
 };
 
 #endif /* UNIONFIND_H_ */

@@ -62,15 +62,7 @@ public:
 		if (AVLnode == NULL) {
 					return;
 		}
-
 		Student* student = AVLnode->value;
-		//cout << "Max Grade : " << *maxGrade << endl;
-		//cout << "Max ID : " << *maxID << endl;
-		//cout << "---------------------------------------------"<<endl;
-		//cout<< "STUDENT ID : " << student->getID() <<endl;
-		//cout << "StudyGroup : "<< student->getStudyGroup()<<endl;
-		//cout <<"Old Average :" <<student->getAverage() <<endl;
-
 		int newGrade=0;
 		if(student->getStudyGroup() == studyGroupID){
 				histogram[student->getAverage()]--;
@@ -86,11 +78,6 @@ public:
 			*maxGrade = newGrade;
 			*maxID = student->getID();
 		}
-
-		//cout <<"New Average :" <<student->getAverage() <<endl;
-		//cout << "New Max Grade : " << *maxGrade << endl;
-		//cout << "New Max ID : " << *maxID << endl;
-		//cout<<endl;
 	}
 };
 

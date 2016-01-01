@@ -12,6 +12,7 @@ StudyGroup::StudyGroup(const StudyGroup& sg){
 	topStudentAVG=sg.topStudentAVG;
 	topStudentID=sg.topStudentID;
 	hasStudents=sg.hasStudents;
+	isFaculty=sg.isFaculty;
 }
 
 StudyGroup::~StudyGroup(){
@@ -26,35 +27,31 @@ int StudyGroup::getTopStudentID(){
 }
 
 void StudyGroup::setTopStudentID(int newStudentID){
-	if(newStudentID ==  NO_STUDENTS_WITH_AVG){
-		return ;
-	}
-
 	topStudentID = newStudentID;
 }
 
 void StudyGroup::setTopStudentAVG(int newStudentAVG , int newStudentID){
 	assert(newStudentAVG >= 0 && newStudentAVG <= 100);
-	if(hasStudents == false){
+
+	if(topStudentID == NO_STUDENTS_WITH_AVG){
 		topStudentID = newStudentID;
 		topStudentAVG = newStudentAVG;
 		return;
-	}
-
-	//if both average are same compare ids
-	if(topStudentAVG == newStudentAVG){
-		//compare ids
-		if(newStudentID < topStudentID){
-			topStudentID = newStudentID;
-			topStudentAVG = newStudentAVG;
+	}else{
+		//if both average are same compare ids
+		if(topStudentAVG == newStudentAVG){
+			//compare ids
+			if(newStudentID < topStudentID){
+				topStudentID = newStudentID;
+				topStudentAVG = newStudentAVG;
+			}
+			return;
+		}else{//avergaes aren't equal , compare them
+			if(newStudentAVG > topStudentAVG){
+				topStudentID = newStudentID;
+				topStudentAVG = newStudentAVG;
+			}
 		}
-		return;
-	}
-
-	//avergaes aren't equal , compare them
-	if(newStudentAVG > topStudentAVG){
-		topStudentID = newStudentID;
-		topStudentAVG = newStudentAVG;
 	}
 }
 
@@ -63,5 +60,19 @@ void StudyGroup::setStudyGroupID(int id){
 }
 
 void StudyGroup::updateFirstStudentAssigned(){
-	hasStudents = true;
+	if(hasStudents == false){
+		hasStudents = true;
+	}
+}
+
+void StudyGroup::updateIsFaculty(){
+	isFaculty = false;
+}
+
+bool StudyGroup::checkIsFaculty(){
+	return isFaculty;
+}
+
+bool StudyGroup::isEmpty(){
+	return !hasStudents;
 }

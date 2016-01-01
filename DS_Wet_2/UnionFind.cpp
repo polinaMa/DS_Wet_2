@@ -86,32 +86,23 @@ int UnionFind::find(int n){
 }
 
 void UnionFind::unite(int parent1, int parent2){
-	assert(parent1 >= 0 && parent2 >= 0);
+	assert(parent1 >= 0 && parent2 >= 0 &&
+			parent1 <numOfElements && parent2<numOfElements);
 
 	//if we try to unite the same group with itself - finish
-	if(parent1 == parent2){
-		return;
-	}
-
-	//if parent 2 already belong to another parent and is not itself
-	//parent then do nothing
-	if(parent2 != this->find(parent2)){
-		return;
-	}
-
-	int newParent = this->find(parent1);
-
 	//check if current parent1 isn't already the parent of parent 2
-	if(this->find(parent2)==parent1){
+	if(parent1 == parent2 || this->find(parent2) == parent1){
 		return;
 	}
+	//int newParent = this->find(parent1);
 
-	this->sizes[newParent]++;
+	this->sizes[parent1]++;
 	this->parents[parent2] = parent1;
-
 	studyGroupsArr[parent1].setTopStudentAVG(
 									studyGroupsArr[parent2].getTopStudentAVG(),
 									studyGroupsArr[parent2].getTopStudentID());
+
+	studyGroupsArr[parent2].updateIsFaculty();
 }
 
 void UnionFind::setBestStudentInFaculty(int facultyID , int studentID ,
@@ -134,4 +125,14 @@ int UnionFind::getTopStudentAvgInFaculty(int facultyID){
 void UnionFind::updateStudentExist(int studyGroupID){
 	assert(studyGroupID >= 0 && studyGroupID < numOfElements);
 	studyGroupsArr[studyGroupID].updateFirstStudentAssigned();
+}
+
+bool UnionFind::isFaculty(int studyGroupID){
+	assert(studyGroupID >= 0 && studyGroupID < numOfElements);
+	return studyGroupsArr[studyGroupID].checkIsFaculty();
+}
+
+bool UnionFind::isFacultyEmpty(int studyGroupID){
+	assert(studyGroupID >= 0 && studyGroupID < numOfElements);
+	return studyGroupsArr[studyGroupID].isEmpty();
 }

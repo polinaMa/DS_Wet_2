@@ -30,6 +30,7 @@ StatusType Academy::AddStudent(int studentID, int average) {
 	if (studentID < 0 || average < 0 || average > 100) {
 		return INVALID_INPUT;
 	}
+
 	if (studentsTree.contains(studentID)) {
 		return FAILURE;
 	}
@@ -44,14 +45,18 @@ StatusType Academy::AssignStudent(int studentID, int studyGroup) {
 		return INVALID_INPUT;
 	}
 
+	Student* student;
 	//check if student exists or student is already assigned to a study group
-	if (studentsTree.contains(studentID) == false
-			|| students.contains(studentID)) {
+	if (studentsTree.contains(studentID) == false || students.contains(studentID)) {
+		student= studentsTree.get(studentID);
+		if(students.contains(studentID) && student->getStudyGroup() == studyGroup){
+			return SUCCESS;
+		}
 		return FAILURE;
 	}
 
 	//find student in students tree
-	Student* student = studentsTree.get(studentID);
+	student= studentsTree.get(studentID);
 
 	//assign the student to the relevant study Group
 	student->setStudyGroup(studyGroup);
@@ -63,6 +68,9 @@ StatusType Academy::AssignStudent(int studentID, int studyGroup) {
 	studyGroupsUF->updateStudentExist(studyGroup);
 
 	int facultyID = studyGroupsUF->find(studyGroup);
+
+	studyGroupsUF->setBestStudentInFaculty(studyGroup,studentID,
+														student->getAverage());
 	studyGroupsUF->setBestStudentInFaculty(facultyID,studentID,
 														student->getAverage());
 	return SUCCESS;
@@ -75,7 +83,7 @@ StatusType Academy::JoinFaculties(int studyGroup1, int studyGroup2) {
 	faculty2 = studyGroupsUF->find(studyGroup2);
 
 	//both study groups belong to the same faculty
-	if(faculty1 == faculty2){
+	if(faculty1 == faculty2 || studyGroup1 == studyGroup2 ){
 		return FAILURE;
 	}
 
@@ -131,43 +139,28 @@ StatusType Academy::UpgradeStudyGroup(int studyGroup, int factor) {
 	int facultyID = studyGroupsUF->find(studyGroup);
 	int maxGradeInFaculty = 0;
 	int idOfMaxGrade = 0;
+
 	idOfMaxGrade = studyGroupsUF->getTopStudentIDInFaculty(facultyID);
 	maxGradeInFaculty = studyGroupsUF->getTopStudentAvgInFaculty(facultyID);
 
-	//cout <<"  --------- Begin Upgrade ---------" <<endl;
-	//cout << "Faculty ID : "<< facultyID<<endl;
-	//cout << "StudyGroup ID : " << studyGroup <<endl;
-	//cout << "Max Grade Before Upgrade :" << maxGradeInFaculty <<endl;
-	//cout << "Max ID Before Upgrade :" << idOfMaxGrade <<endl;
 
 	students.UpgradeStudentsAverage(studyGroup,factor);
 	studentsTree.inOrder(UpgradeStudentAVLTree<int,Student>(studyGroup , factor
 							, &maxGradeInFaculty , &idOfMaxGrade , gradesHistogram));
 
+	studyGroupsUF->setBestStudentInFaculty(studyGroup,idOfMaxGrade,maxGradeInFaculty);
 	studyGroupsUF->setBestStudentInFaculty(facultyID,idOfMaxGrade,maxGradeInFaculty);
-
-	//cout << "New Best ID is :" << idOfMaxGrade <<endl;
-	//cout<< "New Best Grade is :" <<maxGradeInFaculty <<endl;
-
-	//cout << "Max ID After Upgrade :" << studyGroupsUF->getTopStudentIDInFaculty(facultyID) <<endl;
-	//cout << "Max Grade After Upgrade :" <<  studyGroupsUF->getTopStudentAvgInFaculty(facultyID) <<endl;
-
-	//	cout <<"  --------- Finish Upgrade ---------" <<endl;
-
 	return SUCCESS;
 }
 
 
 StatusType Academy::GetSmartestStudent(int facultyID, int* student) {
-	int newFacultyID = studyGroupsUF->find(facultyID);
-	int topStudentID = studyGroupsUF->getTopStudentIDInFaculty(newFacultyID);
-
-	//there are no students in the faculty
-	if(topStudentID ==  -1){
+	int topStudentID = studyGroupsUF->getTopStudentIDInFaculty(facultyID);
+	if(studyGroupsUF->isFaculty(facultyID) == false || topStudentID == -1){
 		return FAILURE;
 	}
 
-	*student=topStudentID;
+	*student = studyGroupsUF->getTopStudentIDInFaculty(facultyID);
 	return SUCCESS;
 }
 
