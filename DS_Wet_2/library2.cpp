@@ -25,7 +25,7 @@ void* Init(int n) {
 }
 
 StatusType AddStudent(void* DS, int studentID, int average) {
-	if (DS == NULL || studentID < 0 || average < 0 || average > 0) {
+	if (DS == NULL || studentID < 0 || average < 0 || average > 100) {
 		return INVALID_INPUT;
 	}
 	return ((Academy*) DS)->AddStudent(studentID, average);

@@ -8,7 +8,7 @@
 #ifndef STUDYGROUP_H_
 #define STUDYGROUP_H_
 
-#include "student.h"
+#include "Student.h"
 #include "assert.h"
 
 #define NO_STUDENTS_WITH_AVG -1
