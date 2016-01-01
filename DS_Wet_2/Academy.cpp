@@ -94,15 +94,21 @@ StatusType Academy::GetFaculty(int studentID, int* faculty) {
 
 
 StatusType Academy::UnifyFacultiesByStudents(int studentID1, int studentID2) {
-	const Student* student1 = students.get(studentID1);
-	const Student* student2 = students.get(studentID2);
+	const Student* student1;
+	const Student* student2;
+	try{
+		 student1 = students.get(studentID1);
+		 student2 = students.get(studentID2);
+	}catch (HashTableException::ElementNotFound&){
+		return FAILURE;
+	}
 
 	//check if students are assigned to a study group - if they are not
 	// assigned we can't join ther faculties
 	if (students.contains(studentID1) == false ||
 								students.contains(studentID2) == false) {
 				return FAILURE;
-		}
+	}
 	int faculty1 = studyGroupsUF->find(student1->getStudyGroup());
 	int faculty2 = studyGroupsUF->find(student2->getStudyGroup());
 
@@ -150,7 +156,7 @@ StatusType Academy::UpgradeStudyGroup(int studyGroup, int factor) {
 
 
 StatusType Academy::GetSmartestStudent(int facultyID, int* student) {
-	int newFacultyID =studyGroupsUF->find(facultyID);
+	int newFacultyID = studyGroupsUF->find(facultyID);
 	int topStudentID = studyGroupsUF->getTopStudentIDInFaculty(newFacultyID);
 
 	//there are no students in the faculty
