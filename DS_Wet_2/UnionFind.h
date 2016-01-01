@@ -75,6 +75,11 @@ public:
 	 * 							  received faculty
 	 */
 	int getTopStudentAvgInFaculty(int facultyID);
+
+	/*
+	 *
+	 */
+	void updateStudentExist(int studyGroupID);
 };
 
 #endif /* UNIONFIND_H_ */

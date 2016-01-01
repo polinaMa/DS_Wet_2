@@ -81,6 +81,7 @@ int UnionFind::find(int n){
 			parents[i] = currentParent;
 		}
 	}
+
 	return currentParent;
 }
 
@@ -107,6 +108,10 @@ void UnionFind::unite(int parent1, int parent2){
 
 	this->sizes[newParent]++;
 	this->parents[parent2] = parent1;
+
+	studyGroupsArr[parent1].setTopStudentAVG(
+									studyGroupsArr[parent2].getTopStudentAVG(),
+									studyGroupsArr[parent2].getTopStudentID());
 }
 
 void UnionFind::setBestStudentInFaculty(int facultyID , int studentID ,
@@ -124,4 +129,9 @@ int  UnionFind::getTopStudentIDInFaculty(int facultyID){
 int UnionFind::getTopStudentAvgInFaculty(int facultyID){
 	assert(facultyID >= 0 && facultyID < numOfElements);
 	return  studyGroupsArr[facultyID].getTopStudentAVG();
+}
+
+void UnionFind::updateStudentExist(int studyGroupID){
+	assert(studyGroupID >= 0 && studyGroupID < numOfElements);
+	studyGroupsArr[studyGroupID].updateFirstStudentAssigned();
 }

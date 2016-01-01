@@ -60,7 +60,9 @@ StatusType Academy::AssignStudent(int studentID, int studyGroup) {
 	students.insert(*student);
 
 	//update highest average in faculty
-	int facultyID = studyGroupsUF->find(student->getStudyGroup());
+	studyGroupsUF->updateStudentExist(studyGroup);
+
+	int facultyID = studyGroupsUF->find(studyGroup);
 	studyGroupsUF->setBestStudentInFaculty(facultyID,studentID,
 														student->getAverage());
 	return SUCCESS;
@@ -78,6 +80,7 @@ StatusType Academy::JoinFaculties(int studyGroup1, int studyGroup2) {
 	}
 
 	studyGroupsUF->unite(faculty1,faculty2);
+
 	return SUCCESS;
 }
 
@@ -149,7 +152,7 @@ StatusType Academy::UpgradeStudyGroup(int studyGroup, int factor) {
 	//cout << "Max ID After Upgrade :" << studyGroupsUF->getTopStudentIDInFaculty(facultyID) <<endl;
 	//cout << "Max Grade After Upgrade :" <<  studyGroupsUF->getTopStudentAvgInFaculty(facultyID) <<endl;
 
-//	cout <<"  --------- Finish Upgrade ---------" <<endl;
+	//	cout <<"  --------- Finish Upgrade ---------" <<endl;
 
 	return SUCCESS;
 }

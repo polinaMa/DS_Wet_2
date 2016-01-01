@@ -15,6 +15,7 @@ class StudyGroup{
 	int id;
 	int topStudentAVG;
 	int topStudentID;
+	bool hasStudents;
 	static const int NO_STUDENTS_WITH_AVG = -1;
 
 	/*
@@ -30,9 +31,9 @@ public:
 	 * 							   topStudentID to be -1 because there are no
 	 * 							   students in the study Group yet
 	 */
-	StudyGroup(int id):id(id),topStudentAVG(0),topStudentID(NO_STUDENTS_WITH_AVG){
+	StudyGroup(int id):id(id),topStudentAVG(0),topStudentID(NO_STUDENTS_WITH_AVG),hasStudents(false){
 	};
-	StudyGroup():id(0),topStudentAVG(0),topStudentID(NO_STUDENTS_WITH_AVG){
+	StudyGroup():id(0),topStudentAVG(0),topStudentID(NO_STUDENTS_WITH_AVG),hasStudents(false){
 	};
 
 	/*
@@ -73,6 +74,11 @@ public:
 	 * setStudyGroupID - sets the current study group id to be the received id
 	 */
 	void setStudyGroupID(int id);
+
+	/*
+	 *
+	 */
+	void updateFirstStudentAssigned();
 };
 
 
