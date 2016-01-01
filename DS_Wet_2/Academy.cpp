@@ -10,23 +10,29 @@
 Academy::Academy(int n) {
 	numOfStudyGroups = n;
 	studentsTree = AVLTree<int, Student>();
+
 	gradesHistogram = new int[101];
 	for (int i = 0; i < 101; i++) {
 		gradesHistogram[i] = 0;
 	}
+
 	students = HashTable(10);
 
 	studyGroupsArr = new StudyGroup*[numOfStudyGroups];
 	for(int i=0 ; i < numOfStudyGroups ; i++){
 		studyGroupsArr[i] = new StudyGroup(i);
 	}
-
 	studyGroupsUF = new UnionFind(numOfStudyGroups);
 }
 
 Academy::~Academy() {
-	delete studyGroupsArr;
-	delete gradesHistogram;
+	for(int i = 0; i < numOfStudyGroups ; i++){
+		delete studyGroupsArr[i];
+	}
+
+	delete studyGroupsUF;
+	delete[] studyGroupsArr;
+	delete[] gradesHistogram;
 }
 
 StatusType Academy::AddStudent(int studentID, int average) {
@@ -123,8 +129,7 @@ StatusType Academy::UpgradeStudyGroup(int studyGroup, int factor) {
 	//go over all students - check if the belong to study group
 	// if yes update grade
 	// otherwise , continue
-
-
+	students.UpgradeStudentsAverage(studyGroup,factor);
 	return SUCCESS;
 }
 

@@ -14,6 +14,9 @@ StudyGroup::StudyGroup(const StudyGroup& sg){
 	topStudentID=sg.topStudentID;
 }
 
+StudyGroup::~StudyGroup(){
+}
+
 int StudyGroup::getTopStudentAVG(){
 	return topStudentAVG;
 }

@@ -21,6 +21,7 @@ class Academy {
 	HashTable students;
 	StudyGroup** studyGroupsArr;
 	UnionFind* studyGroupsUF;
+
 public:
 	/*
 	 * Academy - Constructor - creates a new struct of academy with no

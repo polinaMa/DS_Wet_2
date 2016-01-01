@@ -58,18 +58,27 @@ int UnionFind::find(int n){
 
 	//go on until the parent of the group is found
 	//the current parent of a group will be updated
-	while(parents[currentParent]!= IS_PARENT){
-		currentParent=parents[currentParent];
+	while(parents[currentParent] != IS_PARENT){
+		currentParent = parents[currentParent];
 	}
+
 	return currentParent;
 }
 
 void UnionFind::unite(int parent1, int parent2){
 	assert(parent1 >= 0 && parent2 >= 0);
+
 	//if we try to unite the same group with itself - finish
 	if(parent1 == parent2){
 		return;
 	}
+
+	//if parent 2 already belong to another parent and is not itself
+	//parent then do nothing
+	if(parent2 != this->find(parent2)){
+		return;
+	}
+
 	int newParent = this->find(parent1);
 
 	//check if current parent1 isn't already the parent of parent 2

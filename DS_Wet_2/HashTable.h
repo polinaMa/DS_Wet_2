@@ -31,6 +31,34 @@ class HashTable {
 		}
 	};
 
+	template<class T, class U>
+	class UpgradeStudent {
+		int studyGroupID;
+		int factor;
+
+		public:
+		UpgradeStudent(int studyGroupID,int factor) :
+									studyGroupID(studyGroupID),factor(factor){
+		}
+
+		void operator()(BinaryNode<T, U>* node) const {
+				AVLNode<T, U>* AVLnode = dynamic_cast<AVLNode<T, U>*>(node);
+				if (AVLnode == NULL) {
+					return;
+				}
+
+				Student** student = AVLnode->value;
+
+				if((*student)->getStudyGroup()==studyGroupID){
+					int newGrade=((*student)->getAverage())*factor;
+					if(newGrade > 100){
+						newGrade = 100;
+					}
+				}
+		}
+	};
+
+
 public:
 
 	/*
@@ -74,6 +102,19 @@ public:
 	 * print - prints all the student ids  in the hash table
 	 */
 	void print();
+
+	/*
+	 * UpgradeStudentsAverage - updates the average of all students in
+	 * 							the hash table that belong to the relevant
+	 * 							stuy group , by multiplying it by the factor
+	 * 							received if new grade is higher than 100 ,
+	 * 							then the new grade will be 100
+	 *
+	 * 	@param studyGroupID - the id of the study group whose students will
+	 * 						   get an higher avergae
+	 *  @param factor - the factor by which the grade will be multiplied
+	 */
+	void UpgradeStudentsAverage(int studyGroupID, int factor);
 
 }
 ;

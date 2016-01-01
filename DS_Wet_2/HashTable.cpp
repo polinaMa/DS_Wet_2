@@ -11,6 +11,7 @@ HashTable::HashTable(int initSize) {
 	if (initSize <= 0) {
 		throw HashTableException::invalidInitSize();
 	}
+
 	size = initSize;
 	numOfElements = 0;
 	table = new AVLTree<int, Student*> [initSize];
@@ -67,5 +68,11 @@ void HashTable::print() {
 		std::cout << "Index: " << i << ":\t";
 		table[i].inOrder(printFunction<int, Student*>());
 		std::cout << std::endl;
+	}
+}
+
+void HashTable::UpgradeStudentsAverage(int studyGroupID, int factor){
+	for(int i = 0 ; i < size ; ++i){
+		table[i].inOrder(UpgradeStudent<int,Student*>(studyGroupID,factor));
 	}
 }
