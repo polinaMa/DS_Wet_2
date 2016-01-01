@@ -10,6 +10,8 @@
 
 #include "assert.h"
 
+#define IS_PARENT -1
+
 class UnionFind{
 	int numOfElements;
 	int* sizes;

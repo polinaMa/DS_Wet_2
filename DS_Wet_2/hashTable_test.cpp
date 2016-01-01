@@ -10,11 +10,11 @@
 #include "DS_test_utils.h"
 #include <string>
 #include <iostream>
-
+/*
 std::string location;
 
 using namespace std;
-/*
+
 
 bool test() {
 	HashTable table = HashTable(1);

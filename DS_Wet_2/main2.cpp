@@ -82,6 +82,7 @@ static bool isInit = false;
 // main
 //*************************************************************************
 
+
 int main(int argc, const char**argv) {
 
 	char buffer[MAX_STRING_INPUT_SIZE];
@@ -94,6 +95,7 @@ int main(int argc, const char**argv) {
 	return 0;
 }
 ;
+
 
 //*************************************************************************
 // Command Checker
