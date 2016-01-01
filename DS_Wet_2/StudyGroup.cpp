@@ -7,7 +7,6 @@
 
 #include "StudyGroup.h"
 
-
 StudyGroup::StudyGroup(const StudyGroup& sg){
 	id=sg.id;
 	topStudentAVG=sg.topStudentAVG;
@@ -30,16 +29,15 @@ void StudyGroup::setTopStudentID(int newStudentID){
 		return ;
 	}
 
-	topStudentID=newStudentID;
+	topStudentID = newStudentID;
 }
 
 void StudyGroup::setTopStudentAVG(int newStudentAVG , int newStudentID){
 	assert(newStudentAVG >= 0 && newStudentAVG <= 100);
-
 	//if both average are same compare ids
 	if(topStudentAVG == newStudentAVG){
 		//compare ids
-		if(newStudentAVG < topStudentAVG){
+		if(newStudentID < topStudentID){
 			topStudentID = newStudentID;
 			topStudentAVG = newStudentAVG;
 		}

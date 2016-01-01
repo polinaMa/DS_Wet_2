@@ -6,6 +6,9 @@
  */
 
 #include "Academy.h"
+#include <stdio.h>
+#include <iostream>
+using namespace std;
 
 Academy::Academy(int n) {
 	numOfStudyGroups = n;
@@ -122,11 +125,25 @@ StatusType Academy::UpgradeStudyGroup(int studyGroup, int factor) {
 	idOfMaxGrade = studyGroupsUF->getTopStudentIDInFaculty(facultyID);
 	maxGradeInFaculty = studyGroupsUF->getTopStudentAvgInFaculty(facultyID);
 
+	//cout <<"  --------- Begin Upgrade ---------" <<endl;
+	//cout << "Faculty ID : "<< facultyID<<endl;
+	//cout << "StudyGroup ID : " << studyGroup <<endl;
+	//cout << "Max Grade Before Upgrade :" << maxGradeInFaculty <<endl;
+	//cout << "Max ID Before Upgrade :" << idOfMaxGrade <<endl;
+
 	students.UpgradeStudentsAverage(studyGroup,factor);
 	studentsTree.inOrder(UpgradeStudentAVLTree<int,Student>(studyGroup , factor
-							, &maxGradeInFaculty , &idOfMaxGrade));
+							, &maxGradeInFaculty , &idOfMaxGrade , gradesHistogram));
 
 	studyGroupsUF->setBestStudentInFaculty(facultyID,idOfMaxGrade,maxGradeInFaculty);
+
+	//cout << "New Best ID is :" << idOfMaxGrade <<endl;
+	//cout<< "New Best Grade is :" <<maxGradeInFaculty <<endl;
+
+	//cout << "Max ID After Upgrade :" << studyGroupsUF->getTopStudentIDInFaculty(facultyID) <<endl;
+	//cout << "Max Grade After Upgrade :" <<  studyGroupsUF->getTopStudentAvgInFaculty(facultyID) <<endl;
+
+//	cout <<"  --------- Finish Upgrade ---------" <<endl;
 
 	return SUCCESS;
 }

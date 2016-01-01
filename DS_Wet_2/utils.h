@@ -11,6 +11,10 @@
 #include "AVLTree.h"
 #include "Student.h"
 
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
 template<class T, class U>
 class UpgradeStudentHashTable {
 	int studyGroupID;
@@ -30,9 +34,10 @@ public:
 		Student* student = AVLnode->value;
 
 		if((*student).getStudyGroup()==studyGroupID){
-				int newGrade=((*student).getAverage())*factor;
+				int newGrade=(student->getAverage())*factor;
 				if(newGrade > 100){
 						newGrade = 100;
+						student->setAverage(newGrade);
 				}
 		}
 	}
@@ -44,11 +49,12 @@ class UpgradeStudentAVLTree {
 	int factor;
 	int *maxGrade;
 	int *maxID;
+	int* histogram;
 
 public:
-	UpgradeStudentAVLTree(int studyGroupID,int factor,int* maxGrade,int* maxID):
+	UpgradeStudentAVLTree(int studyGroupID,int factor,int* maxGrade,int* maxID , int* histogram):
 							studyGroupID(studyGroupID),factor(factor),
-							maxGrade(maxGrade),maxID(maxID){
+							maxGrade(maxGrade),maxID(maxID),histogram(histogram){
 	}
 
 	void operator()(BinaryNode<T, U>* node) const {
@@ -58,18 +64,33 @@ public:
 		}
 
 		Student* student = AVLnode->value;
+		//cout << "Max Grade : " << *maxGrade << endl;
+		//cout << "Max ID : " << *maxID << endl;
+		//cout << "---------------------------------------------"<<endl;
+		//cout<< "STUDENT ID : " << student->getID() <<endl;
+		//cout << "StudyGroup : "<< student->getStudyGroup()<<endl;
+		//cout <<"Old Average :" <<student->getAverage() <<endl;
+
 		int newGrade=0;
-		if((*student).getStudyGroup()==studyGroupID){
-				newGrade=((*student).getAverage())*factor;
+		if(student->getStudyGroup() == studyGroupID){
+				histogram[student->getAverage()]--;
+				newGrade=(student->getAverage())*factor;
 				if(newGrade > 100){
 						newGrade = 100;
 				}
+				student->setAverage(newGrade);
+				histogram[newGrade]++;
 		}
-		if(newGrade>*maxGrade ||
-				(newGrade == *maxGrade && student->getID()<*maxID)){
+		if(newGrade > *maxGrade ||
+				(newGrade == *maxGrade && student->getID() < *maxID)){
 			*maxGrade = newGrade;
 			*maxID = student->getID();
 		}
+
+		//cout <<"New Average :" <<student->getAverage() <<endl;
+		//cout << "New Max Grade : " << *maxGrade << endl;
+		//cout << "New Max ID : " << *maxID << endl;
+		//cout<<endl;
 	}
 };
 
