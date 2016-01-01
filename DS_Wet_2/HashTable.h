@@ -13,6 +13,7 @@
 #include <string>
 #include "AVLTree.h"
 #include "Student.h"
+#include "utils.h"
 
 class HashTable {
 	int size, numOfElements;
@@ -30,34 +31,6 @@ class HashTable {
 			std::cout << "| " << *(AVLnode->key);
 		}
 	};
-
-	template<class T, class U>
-	class UpgradeStudent {
-		int studyGroupID;
-		int factor;
-
-		public:
-		UpgradeStudent(int studyGroupID,int factor) :
-									studyGroupID(studyGroupID),factor(factor){
-		}
-
-		void operator()(BinaryNode<T, U>* node) const {
-				AVLNode<T, U>* AVLnode = dynamic_cast<AVLNode<T, U>*>(node);
-				if (AVLnode == NULL) {
-					return;
-				}
-
-				Student* student = AVLnode->value;
-
-				if((*student).getStudyGroup()==studyGroupID){
-					int newGrade=((*student).getAverage())*factor;
-					if(newGrade > 100){
-						newGrade = 100;
-					}
-				}
-		}
-	};
-
 
 public:
 

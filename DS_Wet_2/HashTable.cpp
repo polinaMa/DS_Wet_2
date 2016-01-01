@@ -74,6 +74,6 @@ void HashTable::print() {
 
 void HashTable::UpgradeStudentsAverage(int studyGroupID, int factor){
 	for(int i = 0 ; i < size ; ++i){
-		table[i].inOrder(UpgradeStudent<int,Student>(studyGroupID,factor));
+		table[i].inOrder(UpgradeStudentHashTable<int,Student>(studyGroupID,factor));
 	}
 }

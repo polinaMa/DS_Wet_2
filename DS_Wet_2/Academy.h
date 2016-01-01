@@ -12,6 +12,7 @@
 #include "AVLTree.h"
 #include "HashTable.h"
 #include "UnionFind.h"
+#include "utils.h"
 
 class Academy {
 	int numOfStudyGroups;

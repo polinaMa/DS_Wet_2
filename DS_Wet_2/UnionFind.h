@@ -69,6 +69,12 @@ public:
 	 * 							  received faculty
 	 */
 	int getTopStudentIDInFaculty(int facultyID);
+
+	/*
+	 * getTopStudentIDInFaculty - returns the id of the best setudent in the
+	 * 							  received faculty
+	 */
+	int getTopStudentAvgInFaculty(int facultyID);
 };
 
 #endif /* UNIONFIND_H_ */

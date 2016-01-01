@@ -120,3 +120,8 @@ int  UnionFind::getTopStudentIDInFaculty(int facultyID){
 	assert(facultyID >= 0 && facultyID < numOfElements);
 	return  studyGroupsArr[facultyID].getTopStudentID();
 }
+
+int UnionFind::getTopStudentAvgInFaculty(int facultyID){
+	assert(facultyID >= 0 && facultyID < numOfElements);
+	return  studyGroupsArr[facultyID].getTopStudentAVG();
+}

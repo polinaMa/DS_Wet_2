@@ -112,12 +112,22 @@ StatusType Academy::UnifyFacultiesByStudents(int studentID1, int studentID2) {
 	return SUCCESS;
 }
 
-
 StatusType Academy::UpgradeStudyGroup(int studyGroup, int factor) {
 	//go over all students - check if the belong to study group
 	// if yes update grade
 	// otherwise , continue
+	int facultyID = studyGroupsUF->find(studyGroup);
+	int maxGradeInFaculty = 0;
+	int idOfMaxGrade = 0;
+	idOfMaxGrade = studyGroupsUF->getTopStudentIDInFaculty(facultyID);
+	maxGradeInFaculty = studyGroupsUF->getTopStudentAvgInFaculty(facultyID);
+
 	students.UpgradeStudentsAverage(studyGroup,factor);
+	studentsTree.inOrder(UpgradeStudentAVLTree<int,Student>(studyGroup , factor
+							, &maxGradeInFaculty , &idOfMaxGrade));
+
+	studyGroupsUF->setBestStudentInFaculty(facultyID,idOfMaxGrade,maxGradeInFaculty);
+
 	return SUCCESS;
 }
 
