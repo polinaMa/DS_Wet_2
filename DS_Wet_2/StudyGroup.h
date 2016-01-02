@@ -15,6 +15,7 @@ class StudyGroup{
 	int id;
 	int topStudentAVG;
 	int topStudentID;
+
 	bool hasStudents;
 	bool isFaculty;
 
@@ -80,12 +81,26 @@ public:
 	void setStudyGroupID(int id);
 
 	/*
-	 *
+	 * updateFirstStudentAssigned - update the current studyGroup has students
+	 * 								assigned to it
 	 */
 	void updateFirstStudentAssigned();
+
+	/*
+	 * updateIsFaculty - update the current study group isn't a faculty anymore
+	 */
 	void updateIsFaculty();
+
+	/*
+	 * checkIsFaculty - returns true if the current study group is a faculty
+	 * 					otherwise returns false
+	 */
 	bool checkIsFaculty();
 
+	/*
+	 * isEmpty - returns true if the study group has no students assigned to it
+	 * 			 otherwise returns false
+	 */
 	bool isEmpty();
 };
 

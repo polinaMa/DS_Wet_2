@@ -64,6 +64,7 @@ public:
 		}
 		Student* student = AVLnode->value;
 		int newGrade=0;
+		//update students grade
 		if(student->getStudyGroup() == studyGroupID){
 				histogram[student->getAverage()]--;
 				newGrade=(student->getAverage())*factor;
@@ -72,12 +73,14 @@ public:
 				}
 				student->setAverage(newGrade);
 				histogram[newGrade]++;
+
+				if(newGrade > *maxGrade || (newGrade == *maxGrade && student->getID() < *maxID)){
+						*maxGrade = newGrade;
+						*maxID = student->getID();
+				}
 		}
-		if(newGrade > *maxGrade ||
-				(newGrade == *maxGrade && student->getID() < *maxID)){
-			*maxGrade = newGrade;
-			*maxID = student->getID();
-		}
+
+
 	}
 };
 

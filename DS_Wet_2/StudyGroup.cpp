@@ -32,12 +32,17 @@ void StudyGroup::setTopStudentID(int newStudentID){
 
 void StudyGroup::setTopStudentAVG(int newStudentAVG , int newStudentID){
 	assert(newStudentAVG >= 0 && newStudentAVG <= 100);
-
+	if(newStudentID==NO_STUDENTS_WITH_AVG){
+			return;
+	}
+	//if its the first student assigne to study group , must save it
 	if(topStudentID == NO_STUDENTS_WITH_AVG){
 		topStudentID = newStudentID;
 		topStudentAVG = newStudentAVG;
 		return;
-	}else{
+	}else{//its not the first student in the study group -
+		  //compare with current max grade
+
 		//if both average are same compare ids
 		if(topStudentAVG == newStudentAVG){
 			//compare ids

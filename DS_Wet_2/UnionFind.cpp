@@ -21,6 +21,7 @@ UnionFind::UnionFind(int numOfElements){
 		sizes[i]=1;
 	}
 
+	// update study groups ids
 	studyGroupsArr = new StudyGroup[numOfElements];
 	for(int i=0 ; i < numOfElements ; i++){
 		studyGroupsArr[i].setStudyGroupID(i);
@@ -28,6 +29,7 @@ UnionFind::UnionFind(int numOfElements){
 }
 
 UnionFind::UnionFind(const UnionFind& newUnionFind){
+	//if the current UF is the recieved UF , Do nothing
 	if(this == &newUnionFind){
 		return;
 	}
@@ -41,6 +43,7 @@ UnionFind::UnionFind(const UnionFind& newUnionFind){
 	sizes = new int[numOfElements];
 	parents = new int[numOfElements];
 	studyGroupsArr = new StudyGroup[numOfElements];
+
 	//copy arrays of sizes and parents of each group in the UnionFind structure
 	for(int i=0 ; i<numOfElements ; i++){
 		sizes[i]=newUnionFind.sizes[i];
@@ -55,33 +58,33 @@ UnionFind::~UnionFind(){
 	delete[] studyGroupsArr;
 }
 
-int UnionFind::find(int n){
+int UnionFind::find(int n) {
+	assert(n >= 0 && n <= numOfElements - 1);
+
+	//save the nodes visited in the path to update their parent
 	int visited[numOfElements];
-	for(int i = 0; i < numOfElements ; i++){
-		visited[i]=0;
-	}
-	assert(n >= 0 && n <= numOfElements-1);
+	int visitCounter = 0;
 	//find parent of the current node
 	int currentParent = parents[n];
 
 	//the current group is its own parent
-	if(currentParent == IS_PARENT){
+	if (currentParent == IS_PARENT) {
 		return n;
 	}
 
 	//go on until the parent of the group is found
 	//the current parent of a group will be updated
-	while(parents[currentParent] != IS_PARENT){
-		visited[currentParent]=1;
+	while (parents[currentParent] != IS_PARENT) {
+		visited[visitCounter] = currentParent;
+		++visitCounter;
 		currentParent = parents[currentParent];
 	}
 
-	for(int i = 0 ; i < numOfElements ; i++){
-		if(visited[i] == 1){
-			parents[i] = currentParent;
-		}
+	for (int i = 0; i < visitCounter; i++) {
+		parents[visited[i]] = currentParent;
 	}
 
+	//delete[] visited;
 	return currentParent;
 }
 
@@ -96,12 +99,15 @@ void UnionFind::unite(int parent1, int parent2){
 	}
 	//int newParent = this->find(parent1);
 
-	this->sizes[parent1]++;
+	this->sizes[parent1] = this->sizes[parent1] +this->sizes[parent2];
 	this->parents[parent2] = parent1;
+
+	//update the average in parent 1 by checking the average in parent2
 	studyGroupsArr[parent1].setTopStudentAVG(
 									studyGroupsArr[parent2].getTopStudentAVG(),
 									studyGroupsArr[parent2].getTopStudentID());
 
+	//change the status of parent 2 - it isn't a faculty anymore
 	studyGroupsArr[parent2].updateIsFaculty();
 }
 

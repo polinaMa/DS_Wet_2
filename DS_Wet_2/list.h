@@ -14,7 +14,7 @@ template<class T> class List;
 template<class T> class Iterator;
 
 // ----------------------------- NODE -------------------------------------
-
+/*
 template<class T>
 class Node {
 	template<class U> friend class Iterator;
@@ -34,17 +34,17 @@ class Node {
 
 template<class T>
 Node<T>::Node() :
-		data(nullptr), next(nullptr), prev(nullptr) {
+		data(NULL), next(NULL), prev(NULL) {
 }
 
 template<class T>
 Node<T>::Node(T& data) :
-		data(new T(data)), next(nullptr), prev(nullptr) {
+		data(new T(data)), next(NULL), prev(NULL) {
 }
 
 template<class T>
 Node<T>::Node(const T& data) :
-		data(new T(data)), next(nullptr), prev(nullptr) {
+		data(new T(data)), next(NULL), prev(NULL) {
 }
 
 template<class T>
@@ -82,10 +82,9 @@ class Iterator {
 	const List<T>* list;
 	Node<T>* node;
 public:
-	Iterator() = delete;
 	Iterator(const List<T>* list, Node<T>* node);
-	Iterator(const Iterator<T>& iterator) = default;
-	~Iterator() = default;
+	Iterator(const Iterator<T>& iterator);
+	~Iterator();
 	T& operator*();
 	Iterator<T>& operator++();
 	Iterator<T> operator++(int);
@@ -105,7 +104,7 @@ Iterator<T>::Iterator(const List<T>* list, Node<T>* node) :
 
 template<class T>
 T& Iterator<T>::operator*() {
-	if (node->data == nullptr) {
+	if (node->data == NULL) {
 		throw ListExceptions::ElementNotFound();
 	}
 	return *(node->data);
@@ -199,7 +198,7 @@ public:
 
 	List<T>& operator=(List<T>& list);
 private:
-	int size = 0;
+	int size;
 	Node<T>* head;
 	Node<T>* tail;
 };
@@ -208,6 +207,7 @@ template<class T>
 List<T>::List() :
 		head(new Node<T>()), tail(new Node<T>()) {
 	head->setNext(*tail);
+	size=0;
 }
 
 template<class T>
@@ -349,5 +349,5 @@ List<T>& List<T>::operator=(List<T>& list) {
 	}
 	return *this;
 }
-
+*/
 #endif /* LIST_H_ */

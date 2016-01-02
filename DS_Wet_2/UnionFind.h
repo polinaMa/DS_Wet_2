@@ -10,6 +10,7 @@
 
 #include "assert.h"
 #include "StudyGroup.h"
+#include "list.h"
 #include <stdlib.h>
 
 class UnionFind{
@@ -62,8 +63,6 @@ public:
 	 */
 	void setBestStudentInFaculty(int studyGroupID , int studentID , int average);
 
-
-
 	/*
 	 * getTopStudentIDInFaculty - returns the id of the best setudent in the
 	 * 							  received faculty
@@ -77,15 +76,21 @@ public:
 	int getTopStudentAvgInFaculty(int facultyID);
 
 	/*
-	 *
+	 * updateStudentExist - update the faculty with the faculty ID received has
+	 * 						students assigned to it
 	 */
 	void updateStudentExist(int studyGroupID);
 
 	/*
-	 *
-	 *
+	 * isFaculty - returns true if the study group with the receieved id is a
+	 *			   faculty , otherwise returns false
 	 */
 	bool isFaculty(int studyGroupID);
+
+	/*
+	 * isFacultyEmpty - returns true if the current study group has no students
+	 * 			   assigned to it , or false otherwise
+	 */
 	bool isFacultyEmpty(int studyGroupID);
 };
 

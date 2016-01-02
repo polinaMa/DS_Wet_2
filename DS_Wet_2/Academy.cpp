@@ -49,6 +49,7 @@ StatusType Academy::AssignStudent(int studentID, int studyGroup) {
 	//check if student exists or student is already assigned to a study group
 	if (studentsTree.contains(studentID) == false || students.contains(studentID)) {
 		student= studentsTree.get(studentID);
+		//if student is already assigned to the same requested study group
 		if(students.contains(studentID) && student->getStudyGroup() == studyGroup){
 			return SUCCESS;
 		}
@@ -56,7 +57,7 @@ StatusType Academy::AssignStudent(int studentID, int studyGroup) {
 	}
 
 	//find student in students tree
-	student= studentsTree.get(studentID);
+	student = studentsTree.get(studentID);
 
 	//assign the student to the relevant study Group
 	student->setStudyGroup(studyGroup);
@@ -64,15 +65,15 @@ StatusType Academy::AssignStudent(int studentID, int studyGroup) {
 	// add the assigned student to the hash table
 	students.insert(*student);
 
-	//update highest average in faculty
+	//update highest average in study group
 	studyGroupsUF->updateStudentExist(studyGroup);
-
-	int facultyID = studyGroupsUF->find(studyGroup);
-
 	studyGroupsUF->setBestStudentInFaculty(studyGroup,studentID,
 														student->getAverage());
+	//update highest average in faculty
+	int facultyID = studyGroupsUF->find(studyGroup);
+	//studyGroupsUF->updateStudentExist(facultyID);
 	studyGroupsUF->setBestStudentInFaculty(facultyID,studentID,
-														student->getAverage());
+													student->getAverage());
 	return SUCCESS;
 }
 
@@ -88,7 +89,6 @@ StatusType Academy::JoinFaculties(int studyGroup1, int studyGroup2) {
 	}
 
 	studyGroupsUF->unite(faculty1,faculty2);
-
 	return SUCCESS;
 }
 
@@ -128,7 +128,6 @@ StatusType Academy::UnifyFacultiesByStudents(int studentID1, int studentID2) {
 	}
 
 	studyGroupsUF->unite(faculty1,faculty2);
-
 	return SUCCESS;
 }
 
@@ -140,9 +139,11 @@ StatusType Academy::UpgradeStudyGroup(int studyGroup, int factor) {
 	int maxGradeInFaculty = 0;
 	int idOfMaxGrade = 0;
 
-	idOfMaxGrade = studyGroupsUF->getTopStudentIDInFaculty(facultyID);
-	maxGradeInFaculty = studyGroupsUF->getTopStudentAvgInFaculty(facultyID);
+	idOfMaxGrade = studyGroupsUF->getTopStudentIDInFaculty(studyGroup);
+	maxGradeInFaculty = studyGroupsUF->getTopStudentAvgInFaculty(studyGroup);
 
+	//idOfMaxGrade = studyGroupsUF->getTopStudentIDInFaculty(facultyID);
+	//maxGradeInFaculty = studyGroupsUF->getTopStudentAvgInFaculty(facultyID);
 
 	students.UpgradeStudentsAverage(studyGroup,factor);
 	studentsTree.inOrder(UpgradeStudentAVLTree<int,Student>(studyGroup , factor
@@ -160,10 +161,9 @@ StatusType Academy::GetSmartestStudent(int facultyID, int* student) {
 		return FAILURE;
 	}
 
-	*student = studyGroupsUF->getTopStudentIDInFaculty(facultyID);
+	*student = topStudentID;
 	return SUCCESS;
 }
-
 
 StatusType Academy::GetNumOfStudentsInRange(int fromAvg, int toAvg, int* num) {
 	if (num == NULL || fromAvg >= toAvg || fromAvg < 0 || toAvg > 100) {
