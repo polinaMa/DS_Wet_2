@@ -11,6 +11,7 @@ StudyGroup::StudyGroup(const StudyGroup& sg){
 	id=sg.id;
 	topStudentAVG=sg.topStudentAVG;
 	topStudentID=sg.topStudentID;
+	facultyID=sg.facultyID;
 	hasStudents=sg.hasStudents;
 	isFaculty=sg.isFaculty;
 }
@@ -32,6 +33,7 @@ void StudyGroup::setTopStudentID(int newStudentID){
 
 void StudyGroup::setTopStudentAVG(int newStudentAVG , int newStudentID){
 	assert(newStudentAVG >= 0 && newStudentAVG <= 100);
+
 	if(newStudentID==NO_STUDENTS_WITH_AVG){
 			return;
 	}
@@ -80,4 +82,15 @@ bool StudyGroup::checkIsFaculty(){
 
 bool StudyGroup::isEmpty(){
 	return !hasStudents;
+}
+
+int StudyGroup::getFacultyID(){
+	return facultyID;
+}
+
+void StudyGroup::setFacultyID(int newFacultyID){
+	if(newFacultyID < 0){
+		return;
+	}
+	facultyID = newFacultyID;
 }

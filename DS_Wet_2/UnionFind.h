@@ -10,7 +10,6 @@
 
 #include "assert.h"
 #include "StudyGroup.h"
-#include "list.h"
 #include <stdlib.h>
 
 class UnionFind{
@@ -45,9 +44,10 @@ public:
 	~UnionFind();
 
 	/*
-	 * find - returns the parent of the recieved group
+	 * find - returns the parent of the recieved group in the array of union find
 	 */
 	int find(int n);
+	int findFacultyID(int n);
 
 	/*
 	 * unite - unites the the groups whose parents are recieved as input
@@ -64,16 +64,16 @@ public:
 	void setBestStudentInFaculty(int studyGroupID , int studentID , int average);
 
 	/*
-	 * getTopStudentIDInFaculty - returns the id of the best setudent in the
+	 * getTopStudentIDInFaculty - returns the id of the best student in the
 	 * 							  received faculty
 	 */
-	int getTopStudentIDInFaculty(int facultyID);
+	int getTopStudentIDInFaculty(int studyGroupID);
 
 	/*
-	 * getTopStudentIDInFaculty - returns the id of the best setudent in the
+	 * getTopStudentIDInFaculty - returns the id of the best student in the
 	 * 							  received faculty
 	 */
-	int getTopStudentAvgInFaculty(int facultyID);
+	int getTopStudentAvgInFaculty(int studyGroupID);
 
 	/*
 	 * updateStudentExist - update the faculty with the faculty ID received has
@@ -91,7 +91,9 @@ public:
 	 * isFacultyEmpty - returns true if the current study group has no students
 	 * 			   assigned to it , or false otherwise
 	 */
-	bool isFacultyEmpty(int studyGroupID);
+	//bool isFacultyEmpty(int studyGroupID);
+
+	int getGroupSize(int groupID);
 };
 
 #endif /* UNIONFIND_H_ */

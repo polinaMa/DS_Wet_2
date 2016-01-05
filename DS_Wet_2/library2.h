@@ -36,8 +36,6 @@ typedef enum {
 /* Required Interface for the Data Structure
  * -----------------------------------------*/
 
-
-
 /* Description:   Initializes the Technion's Data Structure with n study groups (that are initially identical to faculties).
  * Input:         n - Number of study groups.
  * Output:        None.

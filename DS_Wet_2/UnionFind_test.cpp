@@ -16,6 +16,11 @@
 std::string location;
 using namespace std;
 
+void printGroupSize(int id , UnionFind* uf){
+	cout << "Group ID  :  " << id <<endl;
+	cout << " >>>> size : " << uf->getGroupSize(id)<< endl;
+}
+
 bool testCreate(){
 	cout<<"------ START ------ testCreate ------ START ------" <<endl;
 	//create a new UnionFind Structure
@@ -59,21 +64,44 @@ bool testUniteAndFind1(){
 	ASSERT_EQUALS(uf.find(5),5);
 	ASSERT_EQUALS(uf.find(6),6);
 
+	ASSERT_EQUALS(uf.getGroupSize(5),2);
+	ASSERT_EQUALS(uf.getGroupSize(3),-1);
+	//cout <<" *************** after 3 united to 5 :" <<endl;
+	//printGroupSize(5,&uf);
+	//printGroupSize(3,&uf);
+	//should be 2
+
 	//unite all to 5
 	ASSERT_NO_THROW(uf.unite(3,4));
+	cout <<" *************** after 4 united to 3 :" <<endl;
+	printGroupSize(5,&uf);
+	printGroupSize(4,&uf);
 	ASSERT_EQUALS(uf.find(4),5);
+	ASSERT_EQUALS(uf.getGroupSize(5),3);
+	ASSERT_EQUALS(uf.getGroupSize(4),-1);
 
 	ASSERT_NO_THROW(uf.unite(4,2));
 	ASSERT_EQUALS(uf.find(2),5);
+	cout <<" *************** after 2 united to 4 :" <<endl;
+	printGroupSize(5,&uf);
+	printGroupSize(2,&uf);
+	ASSERT_EQUALS(uf.getGroupSize(5),4);
+	ASSERT_EQUALS(uf.getGroupSize(2),-1);
 
 	ASSERT_NO_THROW(uf.unite(2,6));
 	ASSERT_EQUALS(uf.find(6),5);
+	ASSERT_EQUALS(uf.getGroupSize(5),5);
+	ASSERT_EQUALS(uf.getGroupSize(6),-1);
 
 	ASSERT_NO_THROW(uf.unite(6,1));
 	ASSERT_EQUALS(uf.find(1),5);
+	ASSERT_EQUALS(uf.getGroupSize(5),6);
+	ASSERT_EQUALS(uf.getGroupSize(1),-1);
 
 	ASSERT_NO_THROW(uf.unite(5,0));
 	ASSERT_EQUALS(uf.find(0),5);
+	ASSERT_EQUALS(uf.getGroupSize(5),7);
+	ASSERT_EQUALS(uf.getGroupSize(0),-1);
 
 	//check union - parent should be 5 for everyone
 	ASSERT_EQUALS(uf.find(0),5);
@@ -147,6 +175,23 @@ bool testUniteAndFind2(){
 	ASSERT_EQUALS(uf.find(12),12);
 	ASSERT_EQUALS(uf.find(13),0);
 	ASSERT_EQUALS(uf.find(14),0);
+
+	ASSERT_EQUALS(uf.getGroupSize(0),4);
+	ASSERT_EQUALS(uf.getGroupSize(1),-1);
+	ASSERT_EQUALS(uf.getGroupSize(2),-1);
+	ASSERT_EQUALS(uf.getGroupSize(3),-1);
+	ASSERT_EQUALS(uf.getGroupSize(4),-1);
+	ASSERT_EQUALS(uf.getGroupSize(5),3);
+	ASSERT_EQUALS(uf.getGroupSize(6),-1);
+	ASSERT_EQUALS(uf.getGroupSize(7),-1);
+	ASSERT_EQUALS(uf.getGroupSize(8),-1);
+	ASSERT_EQUALS(uf.getGroupSize(9),-1);
+	ASSERT_EQUALS(uf.getGroupSize(10),3);
+	ASSERT_EQUALS(uf.getGroupSize(11),-1);
+	ASSERT_EQUALS(uf.getGroupSize(12),5);
+	ASSERT_EQUALS(uf.getGroupSize(13),-1);
+	ASSERT_EQUALS(uf.getGroupSize(14),-1);
+
 
 	cout<<"------ END ------ testUniteAndFind2 ------ END ------" <<endl;
 	return true;

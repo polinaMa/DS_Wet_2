@@ -15,7 +15,7 @@ class StudyGroup{
 	int id;
 	int topStudentAVG;
 	int topStudentID;
-
+	int facultyID;
 	bool hasStudents;
 	bool isFaculty;
 
@@ -35,10 +35,11 @@ public:
 	 * 							   students in the study Group yet
 	 */
 	StudyGroup(int id):id(id),topStudentAVG(0),
-		topStudentID(NO_STUDENTS_WITH_AVG),hasStudents(false),isFaculty(true){
+					   topStudentID(NO_STUDENTS_WITH_AVG),facultyID(id),
+		               hasStudents(false),isFaculty(true){
 	};
 	StudyGroup():id(0),topStudentAVG(0),topStudentID(NO_STUDENTS_WITH_AVG),
-			hasStudents(false) , isFaculty(true){
+			facultyID(id),hasStudents(false) , isFaculty(true){
 	};
 
 	/*
@@ -102,6 +103,16 @@ public:
 	 * 			 otherwise returns false
 	 */
 	bool isEmpty();
+
+	/*
+	 * getFacultyID - reutns faculty ID of the current study Group
+	 */
+	int getFacultyID();
+
+	/*
+	 * setFacultyID - updates the faculty id
+	 */
+	void setFacultyID(int newFacultyID);
 };
 
 
