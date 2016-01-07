@@ -39,8 +39,7 @@ StatusType AddStudent(void* DS, int studentID, int average) {
 }
 
 StatusType AssignStudent(void* DS, int studentID, int studyGroup) {
-	int academySize=((Academy*) DS)->AcademyGetSize();
-	if (DS == NULL || studyGroup < 0 || studyGroup >= academySize ||
+	if (DS == NULL || studyGroup < 0 || studyGroup >= ((Academy*) DS)->AcademyGetSize() ||
 					  studentID < 0) {
 		return INVALID_INPUT;
 	}
@@ -55,9 +54,9 @@ StatusType AssignStudent(void* DS, int studentID, int studyGroup) {
 }
 
 StatusType JoinFaculties(void* DS, int studyGroup1, int studyGroup2) {
-	int academySize=((Academy*) DS)->AcademyGetSize();
 	if(DS == NULL || studyGroup1 < 0 || studyGroup2 < 0 ||
-					 studyGroup1 >= academySize || studyGroup2 >= academySize){
+					 studyGroup1 >= ((Academy*) DS)->AcademyGetSize() ||
+					 studyGroup2 >= ((Academy*) DS)->AcademyGetSize()){
 		return INVALID_INPUT;
 	}
 
@@ -100,8 +99,8 @@ StatusType UnifyFacultiesByStudents(void* DS, int studentID1, int studentID2) {
 }
 
 StatusType UpgradeStudyGroup(void* DS, int studyGroup, int factor) {
-	int academySize=((Academy*) DS)->AcademyGetSize();
-	if(DS == NULL || studyGroup < 0 || studyGroup >= academySize || factor < 1){
+	if(DS == NULL || studyGroup < 0 ||
+			studyGroup >= ((Academy*) DS)->AcademyGetSize() || factor < 1){
 		return INVALID_INPUT;
 	}
 
@@ -115,9 +114,8 @@ StatusType UpgradeStudyGroup(void* DS, int studyGroup, int factor) {
 }
 
 StatusType GetSmartestStudent(void* DS, int facultyID, int* student) {
-	int academySize=((Academy*) DS)->AcademyGetSize();
-	if(DS == NULL || facultyID < 0 || facultyID >= academySize ||
-					 student == NULL) {
+	if(DS == NULL || facultyID < 0 ||
+			facultyID >= ((Academy*) DS)->AcademyGetSize() || student == NULL) {
 		return INVALID_INPUT;
 	}
 
